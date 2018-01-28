@@ -5,6 +5,7 @@ const Commando = require('discord.js-commando');
 const YouTube = require('discord-youtube-api');
 const ytdl = require('ytdl-core');
 const youtube_api_key = require('../../utilities/settings.json').youtube_api_key;
+const youtube = new YouTube(youtube_api_key);
 var util = require('../../utilities/utilities.js');
 var queue = require('../../utilities/queue.js');
 
@@ -29,11 +30,9 @@ module.exports = class add_music_command extends Commando.Command{
 
    async run(msg, {text}){
 
-    //var check_valid_channels = util.check_right_channels(msg);
-   // if( !check_valid_channels) return;
-    var name = msg.member.voiceChannel.name;
-    console.log(name);
-    /*
+    var check_valid_channels = util.check_right_channels(msg);
+    if( !check_valid_channels) return;
+
     var voice_channel = msg.member.voiceChannel;
 
     var request = await youtube.searchVideos(text, 1);
@@ -45,6 +44,6 @@ module.exports = class add_music_command extends Commando.Command{
     msg.reply(url);
 
     queue.add_video(request);
-    */
+
    }
 }

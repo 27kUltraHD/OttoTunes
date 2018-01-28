@@ -14,7 +14,7 @@ var voice_channel = msg.member.voiceChannel;
 var text_channel = msg.channel;
 
 var voice_name = settings.voice_channel_name;
-var text_name = settings.text_channel.name;
+var text_name = settings.text_channel_name;
 
  if(voice_channel.name !== voice_name){
     msg.reply("You need to be connected to the 'Music' channel prior to typing commands");

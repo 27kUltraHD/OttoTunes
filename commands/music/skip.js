@@ -16,14 +16,7 @@ module.exports = class skip_music_command extends Commando.Command{
             group: 'music',
             memberName: 'skip',
             description: 'Takes user input and searches for the song to skip to queue.',
-            example: '~skip A$AP Rocky',
-            args:[
-                {
-                    key:'text',
-                    prompt:'What song do you want to skip?',
-                    type:'string'
-                }
-            ]
+            example: '~skip',
         });
     }
 
@@ -33,6 +26,10 @@ module.exports = class skip_music_command extends Commando.Command{
     if( !check_valid_channels) return;
 
     var voice_channel = msg.member.voiceChannel;
+    var connection = voice_channel.connection;
+    connection.disconnect();
+
+    queue.splice(0,1);
 
     var next = queue[0];
     var url = queue[0].url;
@@ -40,14 +37,7 @@ module.exports = class skip_music_command extends Commando.Command{
 
     msg.reply('Now playing: ' + title);
     msg.reply(url);
- 
-    var connection = voice_channel.connection;
 
-    if(connection.speaking()){
-        msg.reply("Please wait until the current song is done.");
-        return;
-    }
-       
     voice_channel.join()
         .then(connection => {
             var stream = ytdl(url);
